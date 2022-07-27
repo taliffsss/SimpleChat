@@ -1,6 +1,6 @@
-# SimpleChat
-=======
 # SocketIO & ReactJS Simple Chat
+
+This design is not backend dependable, socket server design to accept socket and redis connection [Redis Adapter](https://socket.io/docs/v4/redis-adapter/)
 
 #### Requirements:
 
@@ -10,7 +10,7 @@
 ##### Folder Structure
 
     - SimpleChat
-	    - client
+	    - Client
 	    - socketIO
 	    - .env
 	    - docker-compose.yml
@@ -24,6 +24,3 @@
 	 - `docker-compose down -v`
 - Checking docker container log
 	- `docker logs --tail -1 {container name or id}`
-### How to use
- - Hit enter to join the room
- - Room must be required in order to send message
