@@ -1,0 +1,45 @@
+version: '3.8'
+
+# To build these containers use `docker-compose build`
+# To run the containers use `docker-compose up -d`
+# To bring down the containers use `docker-compose down -v`
+
+services:
+  redis:
+    image: redis:6-alpine
+    container_name: redis_${APP_ENV}
+    ports:
+      - ${REDIS_PORT}:6379
+    restart: unless-stopped
+    command: ["redis-server", "--bind", "redis", "--port", "8888", "--requirepass", "t@l!ffsss"] #Port binding
+    volumes:
+       - ./data/redis:/data
+
+  socket:
+    build:
+      context: ./socketIO/
+    container_name: socket_server_${APP_ENV}
+    command: [ "pm2-runtime", "build/server.js", "--watch" ]
+    restart: unless-stopped
+    ports:
+      - ${SOCKET_PORT}:${SOCKET_PORT}
+    env_file:
+      - .env
+
+  web:
+    build:
+      context: ./client/
+    container_name: web_${APP_ENV}
+    ports:
+      - ${APP_PORT}:3000
+    restart: unless-stopped
+    depends_on:
+      - socket
+    env_file:
+      - .env
+    volumes:
+      # Mount our filesystem into the running container
+      - .:/usr/src/app
+      # Specify the node_modules directory as a volume so that the host's copy does not overwrite
+      # what is in the docker image. See: https://stackoverflow.com/a/32785014
+      - /usr/src/app/node_modules
