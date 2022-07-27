@@ -22,5 +22,5 @@ This design is not backend dependable, socket server design to accept socket and
 	 - `docker-compose up --build -d`
  - Docker down
 	 - `docker-compose down -v`
-- Checking docker container log
+- Checking docker container log [link](https://docs.docker.com/engine/reference/commandline/logs/)
 	- `docker logs --tail -1 {container name or id}`
