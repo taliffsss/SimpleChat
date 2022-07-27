@@ -10,7 +10,7 @@ This design is not backend dependable, socket server design to accept socket and
 ##### Folder Structure
 
     - SimpleChat
-	    - Client
+	    - client
 	    - socketIO
 	    - .env
 	    - docker-compose.yml
